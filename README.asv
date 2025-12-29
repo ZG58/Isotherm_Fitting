@@ -16,15 +16,13 @@
 ## 1. 参数映射与单位说明 (关键)
 
 本项目中的拟合数据基于 **mmol/g**，在数值上等同于 **mol/kg**。
-Aspen Adsorption 中的 **Extended Langmuir 2** 模型通常使用 IP_1 到 IP_4 四个参数。
+Aspen Adsorption 中的 **Extended Langmuir 2** 模型通常使用  到  四个参数。
 
 ### 1.1 模型公式对应
 
 MATLAB 代码 (`src/define_models.m`) 中使用的 **EX-L 2** 模型公式如下：
-$$q = \frac{a \cdot e^{\frac{b}{T}} \cdot P}{1 + c \cdot e^{\frac{d}{T}} \cdot P}$$
 
 Aspen Adsorption 中的标准 Extended Langmuir 2 公式通常表示为：
-$$q = \frac{IP_1 \cdot e^{\frac{IP_2}{T}} \cdot P}{1 + IP_3 \cdot e^{\frac{IP_4}{T}} \cdot P}$$
 
 ### 1.2 参数映射表
 
@@ -49,15 +47,18 @@ $$q = \frac{IP_1 \cdot e^{\frac{IP_2}{T}} \cdot P}{1 + IP_3 \cdot e^{\frac{IP_4}
 
 
 2. **Aspen Adsorption 默认设置**：
-* Aspen 的默认单位集（SI）中，吸附量通常是 **kmol/kg** 。
-* 压力通常是bar。
+* Aspen 的默认单位集（SI）中，吸附量通常是 **** (即 )。
+* 压力通常是 。
 
 
 3. **如何输入到 Aspen**：
-* **方法：手动换算**
+* **方法 A（推荐）：修改 Aspen 单位集**
+在 Aspen Adsorption 的单位设置（Unit Set）中，将 `Mole loading` 或组分容量单位显式设置为 ****。此时，你可以**直接输入** CSV 文件中的  值作为 。
+* **方法 B：手动换算**
 如果保持 Aspen 默认的 **** 单位，你需要将 CSV 文件中的  值除以 1000 后再输入到 。
 
-$$IP_1 (Aspen输入值) = \frac{a (MATLAB拟合值)}{1000}$$
+
+* * (即 ) 的单位与  无关，无需转换，直接输入即可。*
 
 
 
@@ -111,7 +112,7 @@ data_file = fullfile('data', 'NaY_CO.mat');
 
 4. **结果分析**：
 * 打开 `results/xxx/xxx_Model_Comparison.csv` 查看哪个模型效果最好（R_Square 越接近 1，AIC 越低越好）。
-* 打开对应的 `xxx_params.csv` 获取 a, b, c, d 参数。
+* 打开对应的 `xxx_params.csv` 获取  参数。
 
 
 
@@ -119,11 +120,11 @@ data_file = fullfile('data', 'NaY_CO.mat');
 
 * **EX-L 2 (Extended Langmuir 2)**:
 * 最常用的 Aspen 模型，适用于大多数物理吸附。
-* 对应参数： a, b, c, d-> IP_1, IP_2, IP_3, IP_4。
+* 对应参数： -> 。
 
 
 * **EX-L 3**:
-* 包含温度相关的饱和吸附量项 (a - bT) 。
+* 包含温度相关的饱和吸附量项 。
 * **注意**：此模型参数不能直接对应标准的 Aspen Extended Langmuir 2，通常用于自定义模型或分析饱和吸附量的变化。
 
 
