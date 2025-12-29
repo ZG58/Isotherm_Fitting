@@ -1,5 +1,3 @@
-这是一个为你定制的 `README.md` 项目说明文档。它详细解释了项目结构、如何运行代码，最重要的是，详细阐述了 MATLAB 拟合参数与 Aspen Adsorption 模拟参数之间的对应关系及单位换算注意事项。
-
 ---
 
 # 吸附等温线拟合工具 (Isotherm Fitting Tool)
