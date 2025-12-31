@@ -3,7 +3,7 @@ clear; clc; close all;
 
 %% 1. 设置部分 (用户可修改)
 % 参数文件名
-filename = 'results\5A_CO\5A_CO_EXL3_params.csv'; 
+filename = 'results\5A_CO2\5A_CO2_EXL3_params.csv'; 
 
 % 选择模型类型
 % 可选: 'EX-L 2', 'EX-L 3', 'Dual-site'

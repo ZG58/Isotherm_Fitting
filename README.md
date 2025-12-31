@@ -1,5 +1,3 @@
----
-
 # 吸附等温线拟合工具 (Isotherm Fitting Tool)
 
 本项目用于根据实验测定的吸附数据（Loading vs Pressure at different Temperatures），拟合生成 Aspen Adsorption 所需的等温线模型参数。
@@ -7,14 +5,22 @@
 主要功能包括：
 
 1. 自动读取 `.mat` 格式的实验数据。
+
 2. 使用多种模型（Extended Langmuir 2, Extended Langmuir 3, Dual-site Langmuir）进行非线性回归拟合。
+
 3. 生成对比图表和参数 CSV 文件。
+
 4. **输出直接对应 Aspen Adsorption 模拟所需的 IP 参数。**
 
-## 1. 参数映射与单位说明 (关键)
 
-本项目中的拟合数据基于 **mmol/g**，在数值上等同于 **mol/kg**。
-Aspen Adsorption 中的 **Extended Langmuir 2** 模型通常使用 IP_1 到 IP_4 四个参数。
+## 1. 参数映射与单位说明 (关键)
+1. main.m和plot_isotherm.m均基于**mmol/g**
+
+2. 本项目中的拟合数据基于 **mmol/g**，在数值上等同于 **mol/kg**。
+
+3. 不同的模型参数换算要根据具体选择的模型，EX-L 2模型只需要a(IP1)参数除以1000的换算，EX-L 3模型的a和b参数都要进行除以1000的换算。
+
+3. Aspen Adsorption 中的 **Extended Langmuir 2** 模型通常使用 IP_1 到 IP_4 四个参数。
 
 ### 1.1 模型公式对应
 
