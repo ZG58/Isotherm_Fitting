@@ -32,4 +32,20 @@ function models = define_models()
         'independent', {'P', 'T'}, 'dependent', 'Q', ...
         'coefficients', {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'});
     models.Dual.start = [1, 100, 0.1, 100, 1, 100, 0.1, 100];
+
+    %% 4. Dual-site-Langmuir 模型 (双位点)
+
+    %这两个模型虽然都是描述双位点吸附，但最核心的差别在于参数自由度：
+    % Dual 模型（8参数）对饱和吸附量和平衡常数都设置了独立的温度依赖项，数学拟合能力更强；
+    % 而 Dual-site-Langmuir 模型（6参数）强制令分子的各项参数共用部分温度指数，
+    % 结构更简洁且物理参数（如吸附热）的提取更直观，同时也降低了过度拟合的风险。
+
+    % 公式: Site1 + Site2
+    % 注意: 参数较多，拟合极易陷入局部最优，强烈建议设置 Lower bound (下界)
+    form_dual_langmuir = ['(a*b*exp(c/T)*P) ./ (1 + b*exp(c/T)*P) + ' ...
+                 '(d*e*exp(f/T)*P) ./ (1 + e*exp(f/T)*P)'];
+    models.Dual_Langmuir.type = fittype(form_dual_langmuir, ...
+        'independent', {'P', 'T'}, 'dependent', 'Q', ...
+        'coefficients', {'a', 'b', 'c', 'd', 'e', 'f'});
+    models.Dual_Langmuir.start = [1, 100, 0.1, 100, 1, 100];
 end
